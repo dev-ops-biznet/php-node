@@ -25,6 +25,8 @@ RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install soap
+RUN docker-php-ext-install pdo pdo_mysql
 RUN pecl install sqlsrv pdo_sqlsrv
 RUN docker-php-ext-enable sqlsrv pdo_sqlsrv oci8 pcntl
 
