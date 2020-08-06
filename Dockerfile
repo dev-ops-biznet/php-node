@@ -24,6 +24,7 @@ RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install bcmath
+RUN apt update && apt install libxml2-dev -y
 RUN docker-php-ext-install soap
 RUN docker-php-ext-install pdo pdo_mysql
 RUN pecl install sqlsrv pdo_sqlsrv
