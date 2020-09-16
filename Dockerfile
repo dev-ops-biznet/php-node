@@ -4,6 +4,7 @@ FROM php:7.3.12-fpm-stretch
 ADD oracle/instantclient-basic-linux.x64-11.2.0.4.0.zip /tmp/instantclient-basic-linux.x64-11.2.0.4.0.zip
 ADD oracle/instantclient-sdk-linux.x64-11.2.0.4.0.zip /tmp/instantclient-sdk-linux.x64-11.2.0.4.0.zip
 ADD oracle/instantclient-sqlplus-linux.x64-11.2.0.4.0.zip /tmp/instantclient-sqlplus-linux.x64-11.2.0.4.0.zip
+# SAP NWRFC
 ADD sapnwrfc/nwrfc750P_6-70002752.zip /tmp/nwrfc750P_6-70002752.zip
 ADD sapnwrfc/sap.ini /tmp/sap.ini
 
