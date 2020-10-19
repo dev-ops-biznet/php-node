@@ -11,7 +11,7 @@ ADD sapnwrfc/sap.ini /tmp/sap.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN apt-get update -y
-RUN apt-get install -y libaio-dev supervisor nano openssl unixodbc zip unzip git wget libfreetype6-dev libjpeg62-turbo-dev libpng-dev libldb-dev libldap2-dev unixodbc-dev libzip-dev gnupg2 apt-transport-https
+RUN apt-get install -y libaio-dev supervisor nano openssl unixodbc zip unzip git wget libfreetype6-dev libjpeg62-turbo-dev libpng-dev libldb-dev libldap2-dev unixodbc-dev libzip-dev gnupg2 apt-transport-https libssh2-1-dev
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
@@ -53,11 +53,18 @@ RUN docker-php-ext-install bcmath
 RUN apt update && apt install libxml2-dev -y
 RUN docker-php-ext-install soap
 RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN pecl install sqlsrv pdo_sqlsrv ssh2
-RUN docker-php-ext-enable sqlsrv pdo_sqlsrv oci8 pcntl mysqli pdo pdo_mysql ssh2
+RUN pecl install sqlsrv pdo_sqlsrv
+RUN docker-php-ext-enable sqlsrv pdo_sqlsrv oci8 pcntl mysqli pdo pdo_mysql
 RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-development
 RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-production
 RUN echo 'extension=sapnwrfc.so' >> /usr/local/etc/php/conf.d/docker-php-ext-sapnwrfc.ini
+
+# ssh2 This extension does not yet support PHP 7.3 (19 oct 2020)
+# RUN cd /tmp \
+#     && git clone https://git.php.net/repository/pecl/networking/ssh2.git \
+#     && cd /tmp/ssh2/ \
+#     && .travis/build.sh \
+#     && docker-php-ext-enable ssh2
 
 ADD php/oci8.ini /etc/php5/cli/conf.d/30-oci8.ini
 ENV LD_LIBRARY_PATH=/usr/local/instantclient
