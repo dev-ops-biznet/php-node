@@ -53,8 +53,8 @@ RUN docker-php-ext-install bcmath
 RUN apt update && apt install libxml2-dev -y
 RUN docker-php-ext-install soap
 RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN pecl install sqlsrv pdo_sqlsrv
-RUN docker-php-ext-enable sqlsrv pdo_sqlsrv oci8 pcntl mysqli pdo pdo_mysql
+RUN pecl install sqlsrv pdo_sqlsrv ssh2
+RUN docker-php-ext-enable sqlsrv pdo_sqlsrv oci8 pcntl mysqli pdo pdo_mysql ssh2
 RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-development
 RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-production
 RUN echo 'extension=sapnwrfc.so' >> /usr/local/etc/php/conf.d/docker-php-ext-sapnwrfc.ini
