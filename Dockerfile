@@ -1,4 +1,4 @@
-FROM php:7.3.12-fpm-stretch
+FROM php:7.4-fpm
 
 # Oracle instantclient
 ADD oracle/instantclient-basic-linux.x64-11.2.0.4.0.zip /tmp/instantclient-basic-linux.x64-11.2.0.4.0.zip
@@ -87,3 +87,11 @@ RUN npm i -g yarn
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* /var/tmp/*
+
+# Configure non-root user.
+RUN groupmod -o -g 1000 www-data && \
+    usermod -o -u 1000 -g www-data www-data
+
+
+CMD ["php-fpm"]
+EXPOSE 9000

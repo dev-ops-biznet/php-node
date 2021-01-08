@@ -1,5 +1,6 @@
 | Tags     | Note     |Date
 | :----------: | :----------: | :----------: |
+| v1.4.4 | update PHP to 7.4  |Jan 08, 2021|
 | v1.4.3.3 | fixing ext ssh2, add readme  |Oct 19, 2020|
 | v1.4.3.2 | fixing ext ssh2  |Oct 19, 2020|
 | v1.4.3.1 | add ext ssh2 (not yet support)  |Oct 19, 2020|
