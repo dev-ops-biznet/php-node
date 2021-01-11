@@ -44,7 +44,7 @@ RUN cd /tmp && git clone https://github.com/gkralik/php7-sapnwrfc.git \
     && ./configure \
     && make && make install
 
-RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8
+RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-2.2.0
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
@@ -76,11 +76,7 @@ RUN cd /tmp && git clone https://github.com/git-ftp/git-ftp.git && cd git-ftp \
 
 RUN docker-php-ext-install sockets
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get clean
-RUN apt-get install -y nodejs
-RUN apt-get install -y npm
-RUN npm i -g yarn
+FROM node:14-stretch
 
 
 
