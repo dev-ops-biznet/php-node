@@ -76,8 +76,12 @@ RUN cd /tmp && git clone https://github.com/git-ftp/git-ftp.git && cd git-ftp \
 
 RUN docker-php-ext-install sockets
 
-FROM node:14-stretch
+RUN pecl install -o -f redis \
+&&  rm -rf /tmp/pear \
+&&  docker-php-ext-enable redis
 
+RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt-get install nodejs -y -f
 
 
 RUN apt-get clean && \
