@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.3.12-fpm-stretch
 
 # Oracle instantclient
 ADD oracle/instantclient-basic-linux.x64-11.2.0.4.0.zip /tmp/instantclient-basic-linux.x64-11.2.0.4.0.zip
