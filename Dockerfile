@@ -1,4 +1,4 @@
-FROM php:7.2.24-fpm-stretch
+FROM php:7.3-fpm
 
 # Oracle instantclient
 ADD oracle/instantclient-basic-linux.x64-11.2.0.4.0.zip /tmp/instantclient-basic-linux.x64-11.2.0.4.0.zip
@@ -13,14 +13,31 @@ RUN apt-get clean
 RUN apt-get update -y
 RUN apt-get install -y libaio-dev supervisor nano openssl unixodbc zip unzip git wget libfreetype6-dev libjpeg62-turbo-dev libpng-dev libldb-dev libldap2-dev unixodbc-dev libzip-dev gnupg2 apt-transport-https libssh2-1-dev libssh2-1 openssh-server
 
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-RUN apt-get update -yqq \
-    && apt-get install -y --no-install-recommends openssl \ 
-    && sed -i 's,^\(MinProtocol[ ]*=\).*,\1'TLSv1.0',g' /etc/ssl/openssl.cnf \
-    && sed -i 's,^\(CipherString[ ]*=\).*,\1'DEFAULT@SECLEVEL=1',g' /etc/ssl/openssl.cnf\
-    && rm -rf /var/lib/apt/lists/*
-RUN apt-get update -y
+# RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+# RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# RUN apt-get update -yqq \
+#     && apt-get install -y --no-install-recommends openssl \ 
+#     && sed -i 's,^\(MinProtocol[ ]*=\).*,\1'TLSv1.0',g' /etc/ssl/openssl.cnf \
+#     && sed -i 's,^\(CipherString[ ]*=\).*,\1'DEFAULT@SECLEVEL=1',g' /etc/ssl/openssl.cnf\
+#     && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update -y
+
+ENV ACCEPT_EULA=Y
+
+# Microsoft SQL Server Prerequisites
+RUN apt-get update \
+    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/debian/9/prod.list \
+        > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get install -y --no-install-recommends \
+        locales \
+        apt-transport-https \
+    && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
+    && locale-gen \
+    && apt-get update \
+    && apt-get -y --no-install-recommends install \
+        unixodbc-dev \
+        msodbcsql17
 
 RUN ACCEPT_EULA=Y apt-get install msodbcsql17
 RUN ACCEPT_EULA=Y apt-get install mssql-tools
@@ -48,7 +65,7 @@ RUN cd /tmp && git clone https://github.com/gkralik/php7-sapnwrfc.git \
     && ./configure \
     && make && make install
 
-RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8
+RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-2.2.0
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
