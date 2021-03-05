@@ -48,7 +48,7 @@ RUN cd /tmp && git clone https://github.com/gkralik/php7-sapnwrfc.git \
     && ./configure \
     && make && make install
 
-RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-2.2.0
+RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install gd
