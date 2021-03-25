@@ -62,6 +62,10 @@ RUN docker-php-ext-enable sqlsrv pdo_sqlsrv oci8 pcntl mysqli pdo pdo_mysql ssh2
 RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-development
 RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-production
 RUN echo 'extension=sapnwrfc.so' >> /usr/local/etc/php/conf.d/docker-php-ext-sapnwrfc.ini
+#upload
+RUN echo "upload_max_filesize = 10M\n" \
+         "post_max_size = 10M\n" \
+          > /usr/local/etc/php/conf.d/uploads.ini
 
 # ssh2 This extension does not yet support PHP 7.3 (19 oct 2020)
 # RUN cd /tmp \
