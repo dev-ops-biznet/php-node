@@ -1,6 +1,6 @@
 | Tags     | Note     |Date
 | :----------: | :----------: | :----------: |
-| v1.4.4.2 | increase upload max file php  |Mar 25, 2021|
+| v1.4.4.3 | increase upload max file php  |Mar 25, 2021|
 | v1.4.4.1 | sed apt update  |Jan 11, 2021|
 | v1.4.4 | update PHP to 7.4  |Jan 08, 2021|
 | v1.4.3.3 | fixing ext ssh2, add readme  |Oct 19, 2020|
