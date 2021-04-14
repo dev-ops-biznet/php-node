@@ -55,6 +55,7 @@ RUN docker-php-ext-configure gd --with-jpeg
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install ldap
 RUN apt update && apt install libxml2-dev -y
 RUN docker-php-ext-install soap
 RUN docker-php-ext-install mysqli pdo pdo_mysql
