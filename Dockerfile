@@ -11,7 +11,17 @@ ADD sapnwrfc/sap.ini /tmp/sap.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN apt-get clean
 RUN apt-get update -y
-RUN apt-get install -y libaio-dev supervisor nano openssl unixodbc zip unzip git wget libfreetype6-dev libjpeg62-turbo-dev libpng-dev libldb-dev libldap2-dev unixodbc-dev libzip-dev gnupg2 apt-transport-https libssh2-1-dev libssh2-1 openssh-server
+RUN apt-get install -y libaio-dev supervisor nano openssl unixodbc zip unzip git wget libfreetype6-dev libjpeg62-turbo-dev libpng-dev libldb-dev libldap2-dev unixodbc-dev libzip-dev gnupg2 apt-transport-https libssh2-1-dev libssh2-1 openssh-server \
+    libxrender1 \
+    libjpeg62-turbo \
+    fontconfig \
+    libxtst6 \
+    xfonts-75dpi \
+    xfonts-base \
+    xz-utils
+
+RUN curl "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb" -L -o "wkhtmltopdf.deb"
+RUN dpkg -i wkhtmltopdf.deb
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
@@ -65,9 +75,10 @@ RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-development
 RUN echo 'extension=sapnwrfc' >> /usr/local/etc/php/php.ini-production
 RUN echo 'extension=sapnwrfc.so' >> /usr/local/etc/php/conf.d/docker-php-ext-sapnwrfc.ini
 #upload
-RUN echo "upload_max_filesize = 10M\n" \
-         "post_max_size = 10M\n" \
-          > /usr/local/etc/php/conf.d/uploads.ini
+#Setting di repo bukan di image. biar dinamis
+# RUN echo "upload_max_filesize = 10M\n" \
+#          "post_max_size = 10M\n" \
+#           > /usr/local/etc/php/conf.d/uploads.ini
 
 # ssh2 This extension does not yet support PHP 7.3 (19 oct 2020)
 # RUN cd /tmp \
@@ -101,7 +112,6 @@ RUN apt-get clean && \
 # Configure non-root user.
 RUN groupmod -o -g 1000 www-data && \
     usermod -o -u 1000 -g www-data www-data
-
 
 CMD ["php-fpm"]
 EXPOSE 9000
