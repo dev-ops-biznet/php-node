@@ -1,5 +1,6 @@
 | Tags     | Note     |Date
 | :----------: | :----------: | :----------: |
+| v1.4.4.4.1 | nambah modul wkhtmltopdf  |Okt 12, 2021|
 | v1.4.4.4 | nambah modul wkhtmltopdf  |Okt 12, 2021|
 | v1.4.4.3.2 | nambah modul ldap  |Apr 14, 2021|
 | v1.4.4.3.1 | nambah modul GD JPEG  |Mar 25, 2021|

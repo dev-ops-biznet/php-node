@@ -104,7 +104,6 @@ RUN pecl install -o -f redis \
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
 RUN apt-get install nodejs -y -f
 
-
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* /var/tmp/*
