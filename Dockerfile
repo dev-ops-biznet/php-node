@@ -90,6 +90,7 @@ RUN echo 'extension=sapnwrfc.so' >> /usr/local/etc/php/conf.d/docker-php-ext-sap
 ADD php/oci8.ini /etc/php5/cli/conf.d/30-oci8.ini
 ENV LD_LIBRARY_PATH=/usr/local/instantclient
 
+
 RUN cd /tmp && git clone https://github.com/git-ftp/git-ftp.git && cd git-ftp \
     && tag="$(git tag | grep '^[0-9]*\.[0-9]*\.[0-9]*$' | tail -1)" \
     && git checkout "$tag" \
