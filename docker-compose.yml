@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  puppet_mail:
+    build: .
+    image: bzprodev/php-node:v1.4.4.4.1-node-16
+    volumes:
+      - ./node:/var/www/node
